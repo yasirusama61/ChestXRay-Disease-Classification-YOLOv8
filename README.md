@@ -35,3 +35,10 @@ We use the **ChestXDet10 Dataset** containing annotated X-ray images. The datase
 - **`README.md`**: Project documentation.
 
 
+## 🔧 Installation
+To set up the environment, run:
+```bash
+pip install ultralytics opencv-python numpy torch torchvision tqdm
+```
+
+
