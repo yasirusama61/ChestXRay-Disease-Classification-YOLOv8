@@ -21,10 +21,10 @@ We use the **ChestXDet10 Dataset** containing annotated X-ray images. The datase
 
 ## 🏗️ Project Structure
 yolo_chestxray/ 
-│── data/ # Dataset files (DO NOT upload real patient data) 
-│── models/ # Trained YOLOv8 models 
-│── results/ # Evaluation results 
-│── src/ # Python scripts (training, preprocessing, etc.) 
-│── README.md # Project documentation 
-│── .gitignore # Ignore large files 
-│── requirements.txt # Dependencies
+    │── data/ # Dataset files (DO NOT upload real patient data) 
+    │── models/ # Trained YOLOv8 models 
+    │── results/ # Evaluation results 
+    │── src/ # Python scripts (training, preprocessing, etc.) 
+    │── README.md # Project documentation 
+    │── .gitignore # Ignore large files 
+    │── requirements.txt # Dependencies
