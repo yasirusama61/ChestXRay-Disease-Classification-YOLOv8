@@ -1,1 +1,41 @@
- 
+ # Ignore dataset and large files
+data/
+*.csv
+*.json
+*.zip
+*.tar
+*.h5
+*.npz
+*.pkl
+
+# Ignore model checkpoints and logs
+models/
+results/
+*.pt
+*.onnx
+*.weights
+runs/
+logs/
+wandb/
+
+# Ignore virtual environments and dependencies
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore system and IDE-specific files
+.DS_Store
+Thumbs.db
+.ipynb_checkpoints/
+.vscode/
+*.swp
+
+# Ignore cache and temporary files
+*.log
+*.tmp
+train.cache
+valid.cache
+test.cache
+
