@@ -20,12 +20,18 @@ We use the **ChestXDet10 Dataset** containing annotated X-ray images. The datase
 11. **No Finding** (normal cases)  
 
 ## 🏗️ Project Structure
-yolo_chestxray/
-│── data/               # Dataset files (DO NOT upload real patient data)
-│── models/             # Trained YOLOv8 models
-│── results/            # Evaluation results
-│── src/                # Python scripts (training, preprocessing, etc.)
-│── README.md           # Project documentation
-│── .gitignore          # Ignore large files
-│── requirements.txt    # Dependencies
+
+- **`data/`**: Contains the dataset (`train/`, `valid/`, `test/`) for classification.
+- **`scripts/`**: Python scripts for data preparation, label conversion, and training.
+  - `data_preparation.py` → Organizes dataset into `train/`, `valid/`, `test/`
+  - `convert_labels.py` → Converts YOLO bounding box annotations to classification labels
+  - `train.py` → Trains YOLOv8 classification model
+- **`models/`**: Saved trained YOLOv8 models (`best.pt`).
+- **`results/`**: Evaluation results, including accuracy reports and confusion matrices.
+- **`inference/`**: Script for testing trained models on new images.
+  - `inference.py` → Runs inference on new X-ray images
+- **`requirements.txt`**: Python dependencies for the project.
+- **`.gitignore`**: Ignored files for version control (e.g., large datasets, logs).
+- **`README.md`**: Project documentation.
+
 
