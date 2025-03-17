@@ -43,6 +43,29 @@ pip install ultralytics opencv-python numpy torch torchvision tqdm
 
 # 📊 YOLOv8 Classification Results
 
+---
+
+## 🏗 Model Training Settings
+We trained **YOLOv8s-cls** (small classification model) with the following settings:
+
+| Parameter  | Value  | Description |
+|------------|--------|-------------|
+| `epochs`   | **300**  | Number of training epochs |
+| `imgsz`    | **224**  | Image size for input |
+| `batch`    | **64**  | Batch size for training |
+| `workers`  | **2**   | Number of CPU workers for data loading |
+| `optimizer` | **Adam** | Optimizer used for weight updates |
+| `lr0`      | **0.0001** | Initial learning rate |
+| `dropout`  | **0.2** | Dropout rate to prevent overfitting |
+| `cos_lr`   | **True** | Use cosine learning rate schedule |
+| `hsv_h`    | **0.015** | Hue augmentation parameter |
+| `hsv_s`    | **0.7**  | Saturation augmentation parameter |
+| `hsv_v`    | **0.4**  | Brightness augmentation parameter |
+| `fliplr`   | **0.5**  | Probability of horizontal flip |
+| `device`   | **cuda:0** | Force GPU usage |
+
+---
+
 ### 🎯 **Final Model Performance**
 - **Top-1 Accuracy**: **62.5%**
 - **Top-5 Accuracy**: **91.0%**
