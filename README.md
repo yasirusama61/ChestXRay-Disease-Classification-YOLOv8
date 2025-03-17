@@ -65,6 +65,12 @@ We trained **YOLOv8s-cls** (small classification model) with the following setti
 | `device`   | **cuda:0** | Force GPU usage |
 
 ---
+## 🖥️ Training Log Screenshot
+
+Here is a snapshot of the training setup and model structure:
+
+![Training Log](images/training_log.png)
+
 
 ### 🎯 **Final Model Performance**
 - **Top-1 Accuracy**: **62.5%**
