@@ -41,4 +41,14 @@ To set up the environment, run:
 pip install ultralytics opencv-python numpy torch torchvision tqdm
 ```
 
+# 📊 YOLOv8 Classification Results
+
+### 🎯 **Final Model Performance**
+- **Top-1 Accuracy**: **62.5%**
+- **Top-5 Accuracy**: **91.0%**
+- **Test Set Size**: **542 images**
+- **Total Classes**: **11**
+
+
+
 
