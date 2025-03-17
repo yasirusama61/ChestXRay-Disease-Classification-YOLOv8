@@ -64,6 +64,18 @@ We trained **YOLOv8s-cls** (small classification model) with the following setti
 | `fliplr`   | **0.5**  | Probability of horizontal flip |
 | `device`   | **cuda:0** | Force GPU usage |
 
+## 📊 Class Distribution in Train, Validation, and Test Sets
+
+![Class Distribution](images/class_distribution.png)  
+
+The bar chart above represents the distribution of images across different classes in the training, validation, and test datasets. This helps in understanding class imbalance and dataset composition:
+
+- **Train (Blue)**: Majority of images are allocated to training to allow the model to learn effectively.
+- **Validation (Orange)**: A smaller set is used to tune hyperparameters and monitor overfitting.
+- **Test (Green)**: A separate set for evaluating the final model performance.
+
+This visualization ensures that all 11 classes are well represented across all splits and helps in improving model generalization.
+
 ---
 ## 🖥️ Training Log Screenshot
 
