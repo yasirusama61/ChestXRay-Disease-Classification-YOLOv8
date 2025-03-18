@@ -89,13 +89,7 @@ Below is a sample batch of images from the **training dataset**, showing various
 
 ![Training Batch](images/train_batch0.jpg)
 
----
-
 ## 🏥 Chest X-ray Data Augmentation Example
-
-This project involves training a deep learning model for **Chest X-ray Disease Classification** using **YOLOv8**.
-
-### 📷 Sample Batch of Training Images
 
 The image below showcases **a batch of training images** after applying **data augmentations**, including:
 - **Random Cropping**
