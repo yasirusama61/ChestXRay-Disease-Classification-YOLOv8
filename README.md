@@ -83,6 +83,42 @@ Here is a snapshot of the training setup and model structure:
 
 ![Training Log](images/training_log.png)
 
+## 📸 Sample Training Batch
+
+Below is a sample batch of images from the **training dataset**, showing various chest X-ray images with diverse conditions:
+
+![Training Batch](images/train_batch0.jpg)
+
+---
+
+## 📈 Training Metrics and Loss Curves
+
+The following plots represent the training loss curves, classification loss, and performance metrics during the training process:
+
+![Training Metrics](images/results.png)
+
+## 📉 Loss Curve Analysis
+
+The training and validation loss curves provide insights into the model's learning process.
+
+### 🔍 Observations:
+- **Train Loss:** Gradually decreases, showing stable learning.
+- **Validation Loss:** Initially drops but plateaus, indicating limited further learning.
+- **Precision & Recall:** Precision increases over epochs but fluctuates, while recall stabilizes between **0.5 - 0.7**.
+- **mAP Scores:** Consistently improving, confirming better predictions.
+
+### ⚠️ Potential Issues:
+- **Validation loss plateauing** → Model may require fine-tuning (learning rate decay, weight decay).
+- **Fluctuations in precision & recall** → Some classes might be harder to classify due to **imbalance**.
+- **Slight Drop in Top-1 Accuracy** compared to previous runs.
+
+### 🔧 Recommendations:
+1. **Use Cosine Learning Rate Decay** (`cos_lr=True`) to improve convergence.
+2. **Enhance Data Augmentation** to handle class imbalance.
+3. **Increase Dropout Regularization** (`dropout=0.3`) to prevent overfitting.
+4. **Try a Larger Model** (`YOLOv8m-cls`) for better feature extraction.
+
+🚀 *Next Step:* Re-run training with adjustments & monitor validation loss trends.
 
 ### 🎯 **Final Model Performance**
 - **Top-1 Accuracy**: **62.5%**
