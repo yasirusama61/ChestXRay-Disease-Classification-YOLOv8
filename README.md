@@ -148,5 +148,44 @@ Since YOLO expects **object detection annotations**, we **tricked YOLO into mult
 ```txt
 7 0.5 0.5 1.0 1.0  # Effusion (Class 7)
 8 0.5 0.5 1.0 1.0  # Atelectasis (Class 8)
+```
+## 📊 Training Results
+Training was conducted on the **NIH dataset** with **multi-label YOLOv8 detection**.
+
+- **Total Training Time:** 0.917 hours (100 epochs)
+- **Model:** YOLOv8x
+- **Dataset:** NIH Chest X-ray (14 classes)
+- **Optimizer:** Adam
+- **Training Directory:** `/kaggle/working/yolo_multilabel_results/train_multilabel_v12/`
+
+### **📈 Final Validation Metrics**
+| **Metric** | **Value** |
+|------------|----------|
+| **mAP@50** | **0.488** |
+| **mAP@50-95** | **0.488** |
+| **Precision (P)** | **0.44** |
+| **Recall (R)** | **0.535** |
+
+### **📌 Class-wise Performance**
+| **Class** | **Precision (P)** | **Recall (R)** | **mAP@50** | **mAP@50-95** |
+|-----------|-----------------|-----------------|------------|--------------|
+| **Consolidation** | 0.648 | 0.883 | 0.839 | 0.839 |
+| **Pneumothorax** | 0.209 | 0.25  | 0.205 | 0.205 |
+| **Emphysema** | 0.647 | 0.654 | 0.618 | 0.618 |
+| **Calcification** | 0.134 | 0.381 | 0.189 | 0.189 |
+| **Nodule** | 0.309 | 0.215 | 0.282 | 0.282 |
+| **Mass** | 0.287 | 0.364 | 0.243 | 0.243 |
+| **Fracture** | 0.414 | 0.414 | 0.492 | 0.492 |
+| **Effusion** | 0.736 | 0.873 | 0.868 | 0.868 |
+| **Atelectasis** | 0.484 | 0.500 | 0.420 | 0.420 |
+| **Fibrosis** | 0.477 | 0.595 | 0.590 | 0.590 |
+| **No Finding** | 0.498 | 0.758 | 0.618 | 0.618 |
+
+### **🚀 Next Steps & Future Improvements**
+- **Improve Precision:** Reduce false positives by increasing `conf` threshold.
+- **Class Imbalance Solutions:** Apply **weighted loss** to handle rare conditions (e.g., Pneumothorax).
+- **Hybrid Approach:** Combine YOLO for detection with **ResNet/EfficientNet for classification**.
+- **Data Augmentation:** Experiment with **mixup augmentation** to improve generalization.
+
 
 
