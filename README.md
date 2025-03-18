@@ -126,6 +126,27 @@ The training and validation loss curves provide insights into the model's learni
 - **Test Set Size**: **542 images**
 - **Total Classes**: **11**
 
+## 🛠 Solving Multi-Label Per Image Classification in YOLO  
 
+### **🚀 The Problem**  
+YOLO is originally designed for **single-class object detection**, meaning each detected object (bounding box) is assigned only **one label**. However, in **medical imaging**, an X-ray or MRI can contain **multiple conditions simultaneously**.  
+
+#### **🛑 Issues Encountered:**
+- Training YOLO as a **classification model** (subfolder-based approach) resulted in **poor performance**, the top 1 accuracy is just 60%.
+- Directly using **YOLO detection** led to **low precision** due to **incorrect class assignments**.
+- **No built-in support for multi-label classification** per image.
+
+---
+
+### **✅ Our Solution: Treating Multi-Label Classification as Object Detection**
+Since YOLO expects **object detection annotations**, we **tricked YOLO into multi-label learning** by:
+1. **Using a bounding box that covers the entire image** for each label.
+2. **Allowing multiple bounding boxes (one per disease) per image**.
+3. **Training YOLO in detection mode** instead of classification mode.
+
+**📌 Example YOLO Annotation (`image.txt`) for an X-ray with "Effusion" and "Atelectasis":**
+```txt
+7 0.5 0.5 1.0 1.0  # Effusion (Class 7)
+8 0.5 0.5 1.0 1.0  # Atelectasis (Class 8)
 
 
