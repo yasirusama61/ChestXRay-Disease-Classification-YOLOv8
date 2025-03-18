@@ -91,6 +91,33 @@ Below is a sample batch of images from the **training dataset**, showing various
 
 ---
 
+## 🏥 Chest X-ray Data Augmentation Example
+
+This project involves training a deep learning model for **Chest X-ray Disease Classification** using **YOLOv8**.
+
+### 📷 Sample Batch of Training Images
+
+The image below showcases **a batch of training images** after applying **data augmentations**, including:
+- **Random Cropping**
+- **Brightness Adjustments**
+- **Random Rotations**
+- **Black Box Occlusions** (to simulate missing data)
+- **Contrast Adjustments**
+
+<p align="center">
+  <img src="images/train_batch_aug.jpg" alt="Sample Training Batch" width="600"/>
+</p>
+
+---
+
+### 🛠️ **Data Processing Pipeline**
+1. **Preprocessing:** Convert grayscale X-ray images to a standard resolution.
+2. **Augmentation:** Apply transformations to increase model robustness.
+3. **Label Encoding:** Convert disease labels into YOLO classification format.
+4. **Training:** Fine-tune **YOLOv8** on the preprocessed dataset.
+
+📌 _These augmentations help the model generalize better and improve classification accuracy!_ 🚀
+
 ## 📈 Training Metrics and Loss Curves
 
 The following plots represent the training loss curves, classification loss, and performance metrics during the training process:
