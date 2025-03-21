@@ -202,6 +202,33 @@ Training was conducted on the **NIH dataset** with **multi-label YOLOv8 detectio
 | **Fibrosis** | 0.477 | 0.595 | 0.590 | 0.590 |
 | **No Finding** | 0.498 | 0.758 | 0.618 | 0.618 |
 
+---
+
+### 3️⃣ **Confusion Matrix**
+![Confusion Matrix](images/confusion_matrix.png)
+
+🔹 **Description:** The confusion matrix provides insight into the model's predictions for each disease category. 
+
+🔹 **Observations:**
+- The model confuses **Consolidation and Effusion**, indicating overlapping features.
+- **No Finding** class is sometimes misclassified, suggesting potential label noise.
+- Performance for rare classes like **Mass and Calcification** needs improvement.
+
+---
+
+### 4️⃣ **Precision-Recall Curve**
+![Precision-Recall Curve](images/PR_curve%20(1).png)
+
+🔹 **Description:** The **Precision-Recall Curve** evaluates the model's classification performance across different confidence thresholds.
+
+🔹 **Key Insights:**
+- **Effusion (0.868 mAP)** shows strong performance.
+- **Pneumothorax and Calcification** have lower precision, requiring better feature extraction.
+- Overall **mAP@0.5 = 0.488**, indicating room for improvement.
+
+---
+
+
 ### **🚀 Next Steps & Future Improvements**
 - **Improve Precision:** Reduce false positives by increasing `conf` threshold.
 - **Class Imbalance Solutions:** Apply **weighted loss** to handle rare conditions (e.g., Pneumothorax).
