@@ -258,5 +258,9 @@ Augmented images and `.txt` label files are saved directly into the `train/image
 
 This ensures class distribution is much more balanced before training, resulting in better recall and overall performance on rare pathologies.
 
+The following log shows how many synthetic samples were needed for some of the underrepresented classes:
+
+![Augmentation Log](images/augment_log.png)
+
 
 
