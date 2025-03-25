@@ -235,5 +235,28 @@ Training was conducted on the **NIH dataset** with **multi-label YOLOv8 detectio
 - **Hybrid Approach:** Combine YOLO for detection with **ResNet/EfficientNet for classification**.
 - **Data Augmentation:** Experiment with **mixup augmentation** to improve generalization.
 
+## 📊 Class-Conditional Augmentation for Imbalanced YOLO Multilabel Dataset
+
+The ChestXDet10 dataset contains strong class imbalance across multiple disease labels. To address this, we implemented **class-conditional augmentation** during YOLO format preprocessing to improve model generalization, especially on underrepresented classes.
+
+### ✅ What We Did
+
+- Calculated the number of training images per class label.
+- Set a **target image count** (`2000 per class`) to balance minority classes.
+- Identified underrepresented classes and selected images containing them.
+- Applied **Albumentations-based augmentations** to those images:
+  - Horizontal flips
+  - Random brightness & contrast
+  - Small-angle rotation
+  - CLAHE (contrast enhancement for medical images)
+- Saved the **augmented images** and generated corresponding YOLO label files.
+  - Each label kept a full-image bounding box: `class_id 0.5 0.5 1.0 1.0`
+
+### 📁 Output
+
+Augmented images and `.txt` label files are saved directly into the `train/images` and `train/labels` directories inside the YOLO dataset structure.
+
+This ensures class distribution is much more balanced before training, resulting in better recall and overall performance on rare pathologies.
+
 
 
