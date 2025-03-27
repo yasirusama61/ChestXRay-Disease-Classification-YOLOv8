@@ -262,5 +262,24 @@ The following log shows how many synthetic samples were needed for some of the u
 
 ![Augmentation Log](images/augment_log.png)
 
+## 🧪 Targeted Class-Conditional Augmentation (Minority-Only Strategy)
+
+To address severe class imbalance in the ChestXDet10 dataset, we implemented a **targeted augmentation strategy** that applies strong data augmentation only to a selected set of **minority classes**.
+
+### 🔍 Strategy Overview
+
+- **Minority Classes Augmented**:  
+  `Pneumothorax (1)`, `Emphysema (2)`, `Calcification (3)`, `Nodule (4)`, `Mass (5)`, `Fracture (6)`, `Atelectasis (8)`, `Fibrosis (9)`
+  
+- **Majority Classes Skipped**:  
+  `Consolidation (0)`, `Effusion (7)`, and `No Finding (10)` were not augmented to prevent over-representation.
+
+- **Augmentation Techniques Used**:
+  - `Rotation` (±30°)
+  - `Horizontal` and `Vertical Flip`
+  - `Random Brightness/Contrast`
+  - `Gaussian Blur`
+  - `Random Scale`
+  - `Coarse Dropout` (simulating occlusion)
 
 
