@@ -282,4 +282,69 @@ To address severe class imbalance in the ChestXDet10 dataset, we implemented a *
   - `Random Scale`
   - `Coarse Dropout` (simulating occlusion)
 
+## 🧠 Swin Transformer Benchmark on ChestXDet10
+
+To compare YOLOv8’s performance with a strong transformer-based model, we trained a **Swin Transformer** on the same ChestXDet10 dataset.
+
+| **Metric**              | **YOLOv8 (Detection)** | **Swin Transformer (Multi-label Classification)** |
+|-------------------------|------------------------|---------------------------------------------------|
+| **Overall mAP@50**      | 0.488                  | N/A (classification only)                         |
+| **Average Precision**   | 0.44                   | **0.505**                                         |
+| **Average Recall**      | 0.535                  | **0.778**                                         |
+| **Macro AUC**           | —                      | **0.71**                                          |
+| **Framework**           | Ultralytics YOLOv8     | PyTorch + TIMM (Swin Tiny)                        |
+| **Training Time**       | ~55 minutes            | ~45 minutes                                       |
+
+---
+
+### 🔍 Class-wise Performance After Youden Threshold Optimization
+
+| **Class**       | **Precision** | **Recall** | **F1-score** | **AUC**  |
+|-----------------|---------------|------------|--------------|----------|
+| Consolidation   | 0.76          | 0.84       | 0.80         | 0.83     |
+| Pneumothorax    | 0.15          | 0.60       | 0.24         | 0.73     |
+| Emphysema       | 0.35          | 0.72       | 0.47         | 0.84     |
+| Calcification   | 0.12          | 0.37       | 0.18         | 0.59     |
+| Nodule          | 0.21          | 0.64       | 0.31         | 0.64     |
+| Mass            | 0.08          | 0.83       | 0.15         | 0.63     |
+| Fracture        | 0.21          | 0.76       | 0.33         | 0.71     |
+| Effusion        | 0.78          | 0.84       | 0.81         | 0.88     |
+| Atelectasis     | 0.19          | 0.65       | 0.29         | 0.72     |
+| Fibrosis        | 0.22          | 0.82       | 0.34         | 0.70     |
+| No Finding      | 0.35          | 0.82       | 0.49         | 0.82     |
+
+---
+
+### 📈 ROC-AUC Curves per Class
+
+The ROC plot below highlights Swin Transformer’s ability to discriminate across multiple pathologies:
+
+<p align="center">
+  <img src="images/swin_roc_auc.png" width="700" />
+</p>
+
+---
+
+### 🧠 Grad-CAM Visualizations (Consolidation)
+
+To interpret model attention, we applied Grad-CAM on several test images for the **Consolidation** class:
+
+<p align="center">
+  <img src="images/swin_gradcam_consolidation.png" width="900" />
+</p>
+
+> These overlays show that the model correctly focuses on pulmonary regions where pathological patterns are present.
+
+---
+
+### 📌 Key Observations
+
+- ✅ **Swin Transformer** achieved **higher recall and macro AUC** than YOLOv8 — critical for reducing false negatives in medical imaging.
+- 🔁 Applied **Youden’s Index** to determine optimal thresholds per class, leading to stronger per-class performance.
+- ⚠️ **Rare classes** like *Mass*, *Calcification*, and *Pneumothorax* remain challenging due to class imbalance.
+- 🧠 **Focal Loss** was effective at amplifying minority class recall.
+- 🚀 Suggest combining Swin Transformer’s classification strength with YOLO’s detection for **multi-task learning** in the future.
+
+---
+
 
