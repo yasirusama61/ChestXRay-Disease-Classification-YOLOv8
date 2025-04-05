@@ -347,4 +347,79 @@ To interpret model attention, we applied Grad-CAM on several test images for the
 
 ---
 
+## 🧠 Swin Transformer Results on ChestXDet10
+
+We further benchmarked the **Swin Transformer** model on the **ChestXDet10** dataset using multilabel classification. The model was trained using **Focal Loss** and a **Cosine Annealing** learning rate schedule to handle severe class imbalance.
+
+### 🔧 Training Configuration
+
+| Parameter     | Value                         |
+|---------------|-------------------------------|
+| Model         | `swin_tiny_patch4_window7_224`|
+| Epochs        | 30                            |
+| Optimizer     | AdamW                         |
+| Loss Function | Focal Loss                    |
+| Scheduler     | Cosine Annealing              |
+| Image Size    | 224×224                       |
+| Batch Size    | 32                            |
+| Classes       | 11                            |
+
+---
+
+### 📉 Loss & Learning Rate Curves
+
+<p align="center">
+  <img src="images/loss_lr_curve.png" alt="Loss and Learning Rate" width="600"/>
+</p>
+
+---
+
+### 📊 AUROC per Class (Validation)
+
+| Class          | AUROC  |
+|----------------|--------|
+| Consolidation  | 0.83   |
+| Pneumothorax   | 0.88   |
+| Emphysema      | 0.89   |
+| Calcification  | 0.66   |
+| Nodule         | 0.65   |
+| Mass           | 0.72   |
+| Fracture       | 0.76   |
+| Effusion       | 0.90   |
+| Atelectasis    | 0.70   |
+| Fibrosis       | 0.69   |
+| No Finding     | 0.86   |
+
+> 🚀 These results show a significant performance improvement in rare classes compared to YOLOv8 baseline.
+
+---
+
+### 📈 ROC Curves per Class
+
+<p align="center">
+  <img src="images/roc_swin_chestxdet10.png" alt="ROC Curve Swin Transformer" width="700"/>
+</p>
+
+---
+
+### 📊 Multilabel Confusion Matrices
+
+Each matrix shows TP/FP/TN/FN for one class in a multilabel setting.
+
+<p align="center">
+  <img src="images/multilabel_confusion_matrix.png" alt="Multilabel Confusion Matrix" width="800"/>
+</p>
+
+---
+
+### 🔬 Grad-CAM Visualization: Effusion
+
+<p align="center">
+  <img src="images/gradcam_effusion.png" alt="Grad-CAM Effusion" width="800"/>
+</p>
+
+> 🔍 *Swin Transformer demonstrates strong attention focus on lower thoracic regions typical of pleural effusion.*
+
+---
+
 
