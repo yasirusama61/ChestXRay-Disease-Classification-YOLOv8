@@ -422,4 +422,60 @@ Each matrix shows TP/FP/TN/FN for one class in a multilabel setting.
 
 ---
 
+## 🆕 Swin Transformer (Updated Results) – ChestXDet10
+
+We improved the Swin Transformer training pipeline by:
+
+- 🔁 **Extended Training**: Increased from 30 ⟶ **100 epochs**
+- 🔧 **Lowered Learning Rate**: Reduced from `1e-4` ⟶ `1e-5`
+- 🧠 Applied **Focal Loss** to handle class imbalance
+- 🎯 Used **Youden Index thresholds** from the validation set for binarizing test predictions
+
+---
+
+### ✅ Validation AUROC (Best Epoch)
+
+| **Class**        | **AUROC** |
+|------------------|-----------|
+| Consolidation    | 0.8402    |
+| Pneumothorax     | 0.8531    |
+| Emphysema        | 0.8561    |
+| Calcification    | 0.7188    |
+| Nodule           | 0.6798    |
+| Mass             | 0.8058    |
+| Fracture         | 0.7557    |
+| Effusion         | 0.8857    |
+| Atelectasis      | 0.7039    |
+| Fibrosis         | 0.7551    |
+| No Finding       | 0.8253    |
+
+> ✅ **6 classes achieved AUROC > 0.80**, showing clear improvement in generalization and minority class recognition.
+
+---
+
+### 🧪 Test AUROC (Using Youden Thresholds)
+
+| **Class**        | **AUROC** |
+|------------------|-----------|
+| Consolidation    | 0.8347    |
+| Pneumothorax     | 0.8802    |
+| Emphysema        | 0.8866    |
+| Calcification    | 0.6605    |
+| Nodule           | 0.6519    |
+| Mass             | 0.7211    |
+| Fracture         | 0.7642    |
+| Effusion         | 0.8974    |
+| Atelectasis      | 0.6966    |
+| Fibrosis         | 0.6858    |
+| No Finding       | 0.8574    |
+
+---
+
+### 📌 Observations
+
+- 📊 Validation metrics improved across almost all classes with better learning curves.
+- 🎯 **Effusion**, **Emphysema**, **No Finding**, and **Pneumothorax** consistently show strong AUROC on both val/test sets.
+- ✅ Youden Index thresholds allowed better control of the precision-recall tradeoff in multi-label classification.
+- 📉 Slight drop in performance from validation to test suggests **minor domain shift**, but results remain strong and robust.
+
 
