@@ -133,3 +133,23 @@ np.save("/kaggle/working/y_probs.npy", y_probs)
 y_pred = (y_probs > 0.5).astype(int)
 report = classification_report(y_true, y_pred, target_names=category_to_index.keys(), zero_division=0)
 print(report)
+
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_curve, auc
+
+def plot_auc_per_class(y_true, y_probs, class_names, title="ROC Curve (AUC per Class)"):
+    plt.figure(figsize=(10, 8))
+
+    for i in range(len(class_names)):
+        fpr, tpr, _ = roc_curve(y_true[:, i], y_probs[:, i])
+        roc_auc = auc(fpr, tpr)
+        plt.plot(fpr, tpr, label=f"{class_names[i]} (AUC = {roc_auc:.2f})")
+
+    plt.plot([0, 1], [0, 1], "k--", label="Random")
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title(title)
+    plt.legend(loc="lower right", fontsize=9)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
