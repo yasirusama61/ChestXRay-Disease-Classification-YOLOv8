@@ -478,4 +478,59 @@ We improved the Swin Transformer training pipeline by:
 - ✅ Youden Index thresholds allowed better control of the precision-recall tradeoff in multi-label classification.
 - 📉 Slight drop in performance from validation to test suggests **minor domain shift**, but results remain strong and robust.
 
+## 🔁 Retraining Swin Transformer with Targeted Strategy
+
+We previously evaluated Swin Transformer on ChestXDet10, but decided to **retrain with a refined strategy** to address performance gaps and improve minority class learning.
+
+### 🛠️ Retraining Strategy
+
+- 🔽 **Lower Learning Rate:** Set to `1e-6` to improve convergence stability
+- 🧪 **Early Stopping:** Enabled with `patience = 20` (training stopped at epoch 95)
+- 🎯 **Targeted Augmentation:** Applied augmentations **only to minority classes** to balance representation
+- 📈 **Max Epochs:** 200 (with early stopping for efficiency)
+- ⚖️ **Loss Function:** Focal Loss with class weights
+
+---
+
+### 📊 Improved Validation Results
+
+After retraining, we observed strong performance improvements across most classes:
+
+| Class         | AUROC |
+|---------------|--------|
+| Consolidation | 0.8496 |
+| Pneumothorax  | 0.8956 |
+| Emphysema     | 0.9280 |
+| Calcification | 0.9094 |
+| Nodule        | 0.6520 |
+| Mass          | 0.8900 |
+| Fracture      | 0.9117 |
+| Effusion      | 0.8677 |
+| Atelectasis   | 0.7098 |
+| Fibrosis      | 0.9255 |
+| No Finding    | 0.9125 |
+
+---
+
+### 📈 AUROC Evolution (Per Class)
+
+<img src="images/output_auroc_classwise.png" alt="AUROC per Class over Epochs" width="700"/>
+
+---
+
+### 📉 Training vs Validation Loss with LR
+
+<img src="images/output_loss_lr.png" alt="Training and Validation Loss + LR" width="700"/>
+
+---
+
+### ✅ Summary
+
+The retrained Swin Transformer:
+- Outperforms our YOLOv8 and initial Swin baselines
+- Achieves **AUROC > 0.85** for 8/11 classes
+- Shows **exceptional performance** for Emphysema, Fibrosis, Mass, and No Finding
+- Demonstrates improved generalization due to early stopping and class-balanced learning
+
+📌 _This forms a solid foundation for robust medical diagnosis models using modern vision transformers._
 
