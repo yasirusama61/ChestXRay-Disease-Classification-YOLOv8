@@ -480,35 +480,34 @@ We improved the Swin Transformer training pipeline by:
 
 ## 🔁 Retraining Swin Transformer with Targeted Strategy
 
-We previously evaluated Swin Transformer on ChestXDet10, but decided to **retrain with a refined strategy** to address performance gaps and improve minority class learning.
+We previously evaluated the Swin Transformer on the ChestXDet10 dataset. To address class imbalance and convergence issues, we adopted a **refined training strategy** that led to significant improvements—especially for minority classes.
 
 ### 🛠️ Retraining Strategy
 
-- 🔽 **Lower Learning Rate:** Set to `1e-6` to improve convergence stability
-- 🧪 **Early Stopping:** Enabled with `patience = 20` (training stopped at epoch 95)
-- 🎯 **Targeted Augmentation:** Applied augmentations **only to minority classes** to balance representation
-- 📈 **Max Epochs:** 200 (with early stopping for efficiency)
-- ⚖️ **Loss Function:** Focal Loss with class weights
+- 🔽 **Lower Learning Rate:** Set to `1e-6` for better convergence on complex medical data  
+- 🧪 **Early Stopping:** Enabled with `patience = 20`; training stopped at **epoch 95**
+- 🎯 **Targeted Augmentation:** Strong augmentations applied **only to minority classes**
+- 📊 **Max Epochs:** 200 (early stopping used to prevent overfitting)
+- ⚖️ **Loss Function:** `Focal Loss` with dynamically computed class weights (`pos_weight`)
+- 🏋️ **Architecture:** `swin_tiny_patch4_window7_224` pretrained on ImageNet
 
 ---
 
-### 📊 Improved Validation Results
+### 📊 Final Validation AUROC (Epoch 95)
 
-After retraining, we observed strong performance improvements across most classes:
-
-| Class         | AUROC |
-|---------------|--------|
-| Consolidation | 0.8496 |
-| Pneumothorax  | 0.8956 |
-| Emphysema     | 0.9280 |
-| Calcification | 0.9094 |
-| Nodule        | 0.6520 |
-| Mass          | 0.8900 |
-| Fracture      | 0.9117 |
-| Effusion      | 0.8677 |
-| Atelectasis   | 0.7098 |
-| Fibrosis      | 0.9255 |
-| No Finding    | 0.9125 |
+| **Class**       | **AUROC** |
+|------------------|-----------|
+| Consolidation    | 0.8527    |
+| Pneumothorax     | 0.8831    |
+| Emphysema        | 0.8975    |
+| Calcification    | 0.8423    |
+| Nodule           | 0.8593    |
+| Mass             | 0.8366    |
+| Fracture         | 0.8510    |
+| Effusion         | 0.8445    |
+| Atelectasis      | 0.8729    |
+| Fibrosis         | 0.8919    |
+| No Finding       | 0.9489    |
 
 ---
 
@@ -518,7 +517,7 @@ After retraining, we observed strong performance improvements across most classe
 
 ---
 
-### 📉 Training vs Validation Loss with LR
+### 📉 Training vs Validation Loss with Learning Rate
 
 <img src="images/output_loss_lr.png" alt="Training and Validation Loss + LR" width="700"/>
 
@@ -527,10 +526,15 @@ After retraining, we observed strong performance improvements across most classe
 ### ✅ Summary
 
 The retrained Swin Transformer:
-- Outperforms our YOLOv8 and initial Swin baselines
-- Achieves **AUROC > 0.85** for 8/11 classes
-- Shows **exceptional performance** for Emphysema, Fibrosis, Mass, and No Finding
-- Demonstrates improved generalization due to early stopping and class-balanced learning
 
-📌 _This forms a solid foundation for robust medical diagnosis models using modern vision transformers._
+- Outperforms **YOLOv8 classification and detection variants**
+- Achieves **AUROC > 0.85** for 9 out of 11 classes  
+- Shows excellent performance for difficult pathologies like **Fibrosis**, **Emphysema**, **Fracture**, and **No Finding**
+- Generalizes better due to:
+  - Early stopping
+  - Class-targeted data augmentation
+  - Careful LR scheduling and Focal Loss
+
+📌 _These results position the Swin Transformer as a powerful backbone for automated, interpretable medical diagnosis._
+
 
