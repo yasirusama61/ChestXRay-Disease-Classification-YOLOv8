@@ -11,9 +11,11 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn.functional as F
-import numpy as np
 from sklearn.metrics import classification_report
 from tqdm import tqdm
+import matplotlib.pyplot as plt
+from sklearn.metrics import multilabel_confusion_matrix
+
 
 # === Config
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -153,3 +155,38 @@ def plot_auc_per_class(y_true, y_probs, class_names, title="ROC Curve (AUC per C
     plt.grid(True)
     plt.tight_layout()
     plt.show()
+
+
+# === Class names (ChestXDet10) ===
+class_names = [
+    'Consolidation', 'Pneumothorax', 'Emphysema', 'Calcification', 'Nodule',
+    'Mass', 'Fracture', 'Effusion', 'Atelectasis', 'Fibrosis', 'No Finding'
+]
+
+# === Compute multilabel confusion matrix
+mcm = multilabel_confusion_matrix(y_true, y_pred)
+
+# === Plot grid
+fig, axes = plt.subplots(3, 4, figsize=(16, 10))
+axes = axes.flatten()
+
+for i, (cm, label) in enumerate(zip(mcm, class_names)):
+    tn, fp, fn, tp = cm.ravel()
+    ax = axes[i]
+    im = ax.imshow([[tp, fn], [fp, tn]], cmap="Blues", vmin=0)
+
+    ax.set_xticks([0, 1])
+    ax.set_yticks([0, 1])
+    ax.set_xticklabels(["Pred: 1", "Pred: 0"])
+    ax.set_yticklabels(["True: 1", "True: 0"])
+    ax.set_title(f"{label}")
+    for (x, y), val in np.ndenumerate([[tp, fn], [fp, tn]]):
+        ax.text(y, x, f"{val}", ha='center', va='center', color='black', fontsize=10)
+
+# Hide unused subplot if class count < axes count
+for j in range(len(class_names), len(axes)):
+    axes[j].axis("off")
+
+fig.suptitle("Multilabel Confusion Matrix (Per Class)", fontsize=16)
+plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+plt.show()
