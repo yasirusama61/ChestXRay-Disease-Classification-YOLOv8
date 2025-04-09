@@ -1,11 +1,26 @@
- 
-# YOLOv8 Chest X-Ray Disease Classification
+![Framework](https://img.shields.io/badge/Framework-PyTorch%20%7C%20YOLOv8%20%2B%20Swin-blue)
+![License](https://img.shields.io/github/license/yasirusama61/YOLOv8-Object-Detection)
+![Stars](https://img.shields.io/github/stars/yasirusama61/YOLOv8-Object-Detection?style=social)
+![Issues](https://img.shields.io/github/issues/yasirusama61/YOLOv8-Object-Detection)
+![Last Commit](https://img.shields.io/github/last-commit/yasirusama61/YOLOv8-Object-Detection)
+
+# 🧠 YOLOv8 + Swin Transformer for Chest X-Ray Disease Classification
 
 ## 🚀 Project Overview
-This project implements **YOLOv8** for classifying chest X-ray images into 11 disease categories. The model is trained on the **ChestXDet10** dataset to automate medical diagnosis using deep learning.
+
+This project implements **YOLOv8** and **Swin Transformer** models to classify chest X-ray images into **11 disease categories** using the **ChestXDet10** dataset.  
+It covers both **object detection (YOLOv8)** and **multi-label classification (Swin Transformer)** pipelines and emphasizes:
+
+- 💉 **Class imbalance handling**
+- 🧪 **Robust augmentation strategies**
+- 🧠 **Model interpretability via Grad-CAM++**
+- 🎯 **Confidence calibration using Youden’s index**
+
+---
 
 ## 📂 Dataset
-We use the **ChestXDet10 Dataset** containing annotated X-ray images. The dataset includes 11 classes:
+
+We use the **ChestXDet10 Dataset**, which contains annotated chest X-ray images and supports multi-label classification across 11 classes:
 
 1. **Consolidation**  
 2. **Pneumothorax**  
@@ -17,29 +32,56 @@ We use the **ChestXDet10 Dataset** containing annotated X-ray images. The datase
 8. **Effusion**  
 9. **Atelectasis**  
 10. **Fibrosis**  
-11. **No Finding** (normal cases)  
+11. **No Finding** (normal cases)
+
+---
+
+### 🧠 Benchmark Models
+
+| Model            | Type                  | Use Case                       |
+|------------------|-----------------------|---------------------------------|
+| YOLOv8           | Object Detection      | Multi-label via pseudo-bounding boxes |
+| Swin Transformer | Image Classification  | Multi-label prediction (direct) |
+
+> Evaluation includes **AUROC**, **per-class thresholding (Youden)**, and **Grad-CAM++** interpretability visualizations.
+
+---
 
 ## 🏗️ Project Structure
 
-- **`data/`**: Contains the dataset (`train/`, `valid/`, `test/`) for classification.
-- **`scripts/`**: Python scripts for data preparation, label conversion, and training.
-  - `data_preparation.py` → Organizes dataset into `train/`, `valid/`, `test/`
-  - `convert_labels.py` → Converts YOLO bounding box annotations to classification labels
-  - `train.py` → Trains YOLOv8 classification model
-- **`models/`**: Saved trained YOLOv8 models (`best.pt`).
-- **`results/`**: Evaluation results, including accuracy reports and confusion matrices.
-- **`inference/`**: Script for testing trained models on new images.
-  - `inference.py` → Runs inference on new X-ray images
-- **`requirements.txt`**: Python dependencies for the project.
-- **`.gitignore`**: Ignored files for version control (e.g., large datasets, logs).
-- **`README.md`**: Project documentation.
+- **`data/`**: Dataset folders (`train/`, `valid/`, `test/`)
+- **`scripts/`**: Python scripts for training and evaluation
+  - `data_preparation.py` → Prepares train/val/test split
+  - `convert_labels.py` → Converts YOLO-style bbox to classification labels
+  - `train.py` → Trains YOLOv8 classifier
+  - `evaluate_swin_youden_thresh.py` → Swin Transformer eval with calibrated thresholds ✅
+- **`models/`**: YOLOv8 `.pt` or Swin `.pth` weights
+- **`results/`**: Saved predictions, logs, plots
+- **`inference/`**: Prediction and visualization scripts
+  - `inference.py` → Runs inference on custom images
+- **`requirements.txt`**: All Python dependencies
+- **`.gitignore`**: Clean repo tracking
+- **`README.md`**: Full project documentation (this file)
 
+---
 
 ## 🔧 Installation
-To set up the environment, run:
+
+To set up the environment, clone the repo and install all required dependencies:
+
 ```bash
-pip install ultralytics opencv-python numpy torch torchvision tqdm
+git clone https://github.com/yasirusama61/YOLOv8-Object-Detection.git
+cd YOLOv8-Object-Detection
+pip install -r requirements.txt
 ```
+If you're running models individually, you can install dependencies manually:
+
+# YOLOv8-related
+`pip install ultralytics opencv-python`
+
+# Swin Transformer and Evaluation
+`pip install timm torch torchvision scikit-learn matplotlib tqdm pillow`
+
 
 # 📊 YOLOv8 Classification Results
 
