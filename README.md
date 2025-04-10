@@ -1,4 +1,6 @@
-![Framework](https://img.shields.io/badge/Framework-PyTorch%20%7C%20YOLOv8%20%2B%20Swin-blue)
+![Framework](https://img.shields.io/badge/Framework-PyTorch%20%7C%20YOLOv8%20%2B%20Swin%20Transformer-blue)
+![GPU](https://img.shields.io/badge/GPU-RTX%204090-ff69b4?logo=nvidia&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Actively%20Training-brightgreen)
 ![License](https://img.shields.io/github/license/yasirusama61/YOLOv8-Object-Detection)
 ![Stars](https://img.shields.io/github/stars/yasirusama61/YOLOv8-Object-Detection?style=social)
 ![Issues](https://img.shields.io/github/issues/yasirusama61/YOLOv8-Object-Detection)
