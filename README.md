@@ -609,4 +609,17 @@ The retrained Swin Transformer:
 
 📌 _These results position the Swin Transformer as a powerful backbone for automated, interpretable medical diagnosis._
 
+## 🔍 Minority Class Recovery via Targeted Oversampling
+
+To address class imbalance, we applied:
+
+- 🎯 **Targeted oversampling**: Added 3× synthetic entries for minority class samples
+- 🧠 **Strong augmentations** applied only to those underrepresented cases
+- ⚖️ **Focal Loss** to weigh harder classes and improve recall
+
+### 📈 Validation Results (Epoch 38)
+
+<img src="images/val_results_38.png" alt="Results at epoch 38" width="700"/>
+
+> 🟢 These results demonstrate **significant improvement in sensitivity** for rare classes.
 
