@@ -82,6 +82,34 @@ If you're running models individually, you can install dependencies manually:
 # Swin Transformer and Evaluation
 `pip install timm torch torchvision scikit-learn matplotlib tqdm pillow`
 
+## ⚙️ Hardware & Distributed Training Setup
+
+This project is developed and trained using **high-performance computing resources** to support large-scale medical imaging workloads.
+
+### 🔋 GPU Configuration
+
+> 🖥️ **NVIDIA GeForce RTX 4090 (24GB VRAM)**  
+> 🔧 CUDA + cuDNN acceleration  
+> 🧠 Enables high-resolution inputs (224×224), large batch sizes, and efficient multi-label training
+
+Our GPU allows us to handle computationally intensive models such as **Swin Transformer** and **Hybrid DenseNet + Transformer** with ease.
+
+### 🔄 Distributed Training Strategy
+
+To optimize training performance and memory usage, we implemented:
+
+- ✅ **Multi-GPU Support via `torch.nn.DataParallel`** (for models that fit in shared memory)
+- ✅ Gradient accumulation for handling larger effective batch sizes
+- ✅ Mixed precision training (via `torch.cuda.amp`) for memory efficiency and speed
+- ✅ Dedicated data loaders per GPU to reduce I/O bottlenecks
+- ✅ Efficient checkpointing and per-GPU metric logging during long experiments
+
+> ⚠️ All training experiments are conducted on a **local workstation** equipped with RTX 4090, avoiding reliance on cloud GPUs and ensuring faster iteration cycles.
+
+---
+
+📌 This setup significantly reduces training time for deep models (like Swin, ViT, or YOLOv8) and supports **real-time augmentation** and **class-balanced batch generation**, even on large medical datasets.
+
 
 # 📊 YOLOv8 Classification Results
 
