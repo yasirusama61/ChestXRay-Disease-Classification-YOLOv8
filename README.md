@@ -609,17 +609,47 @@ The retrained Swin Transformer:
 
 📌 _These results position the Swin Transformer as a powerful backbone for automated, interpretable medical diagnosis._
 
-## 🔍 Minority Class Recovery via Targeted Oversampling
+## 📈 Model Progress & Precision-Recall Tradeoffs
 
-To address class imbalance, we applied:
+We are currently in the optimization phase of our Swin Transformer-based multilabel classifier for the **ChestXDet10** dataset. Over the past week, we’ve focused on tuning the model to improve performance across minority classes by integrating:
 
-- 🎯 **Targeted oversampling**: Added 3× synthetic entries for minority class samples
-- 🧠 **Strong augmentations** applied only to those underrepresented cases
-- ⚖️ **Focal Loss** to weigh harder classes and improve recall
+- 🔁 **Targeted strong augmentation** for rare pathologies (e.g., *Pneumothorax*, *Fibrosis*, *Mass*)
+- 🎯 **Focal Loss** to focus learning on hard-to-classify examples
+- 📉 **CosineAnnealingLR** scheduler for smoother convergence
 
-### 📈 Validation Results (Epoch 38)
+### 🛠️ Experimental Setup
+- **Model**: Swin-Tiny (patch4, window7, 224)
+- **GPU**: NVIDIA GeForce RTX 4090 (24GB VRAM)
+- **Training Duration**: 50 Epochs (and ongoing)
+- **Input Size**: 224×224
+- **Batch Size**: 64
+- **Augmentations**:
+  - Strong augmentations for minority-class samples
+  - Standard augmentations for the rest
 
-<img src="images/val_results_38.png" alt="Results at epoch 38" width="700"/>
+### 📊 Loss Curve (Epochs 1–50)
+<p align="center">
+  <img src="images/loss_curve.png" alt="Training and Validation Loss" width="600"/>
+</p>
 
-> 🟢 These results demonstrate **significant improvement in sensitivity** for rare classes.
+The model shows **stable convergence**, with validation loss steadily decreasing and no overfitting observed up to 50 epochs.
 
+### ⚖️ Precision vs Recall Evolution
+We track precision and recall per class over training to evaluate minority class performance improvements.
+
+<p align="center">
+  <img src="images/precision_recall_plot.png" alt="Precision Recall Tradeoff" width="600"/>
+</p>
+
+📌 **Key Observations:**
+- Minority classes such as **Pneumothorax**, **Emphysema**, and **Mass** exhibit sharp recall improvements across epochs.
+- Classes like **Fracture**, **Fibrosis**, and **Effusion** maintain high recall with improving precision.
+- **No Finding** consistently achieves near-perfect recall, indicating strong background detection.
+
+### ✅ Current Status
+- Training is stable with **val loss ~0.0761** by epoch 50
+- Per-class recall > 0.80 for most target pathologies
+- Precision continues to improve for classes with initially low values
+- We are monitoring training for further improvements up to 100–150 epochs, followed by final test-time evaluation
+
+More visualizations, Grad-CAM++ attention maps, and class-wise AUROC plots will follow in the next phase.
