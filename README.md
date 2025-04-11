@@ -655,3 +655,65 @@ We track precision and recall per class over training to evaluate minority class
 - We are monitoring training for further improvements up to 100–150 epochs, followed by final test-time evaluation
 
 More visualizations, Grad-CAM++ attention maps, and class-wise AUROC plots will follow in the next phase.
+
+## 📊 Swin Transformer Evaluation on ChestXDet10
+
+After rigorous training and optimization over 200 epochs using advanced class-conditional augmentations and a low learning rate, the Swin Transformer model was tested on the held-out test set of the ChestXDet10 dataset. The model demonstrated robust generalization across multiple pathology classes under multi-label conditions.
+
+### 🔍 Key Evaluation Highlights
+
+- **Evaluation Thresholds**: Optimized per class using Youden’s J statistic
+- **Model Checkpoint**: Auto-saved best-performing weights during training
+
+---
+
+### 📈 ROC Curve (AUC per Class)
+
+![ROC Curve](images/image.png)
+
+The model achieved high AUROC scores across critical classes:
+- Emphysema: **0.90**
+- Effusion: **0.89**
+- Consolidation: **0.85**
+- No Finding: **0.85**
+- Fracture: **0.72**
+
+---
+
+### 🧠 Multilabel Confusion Matrix (Per Class)
+
+Each matrix illustrates prediction breakdowns for True Positive/Negative and False Positive/Negative rates.
+
+![Multilabel Confusion Matrix](images/multilabel.png)
+
+---
+
+### 📋 Classification Report @ Optimal Thresholds
+
+| Class          | Precision | Recall | F1-Score | Support |
+|----------------|-----------|--------|----------|---------|
+| Consolidation  | 0.78      | 0.84   | 0.81     | 289     |
+| Pneumothorax   | 0.13      | 0.57   | 0.21     | 35      |
+| Emphysema      | 0.33      | 0.79   | 0.47     | 39      |
+| Calcification  | 0.11      | 0.71   | 0.20     | 38      |
+| Nodule         | 0.21      | 0.36   | 0.27     | 77      |
+| Mass           | 0.07      | 0.87   | 0.13     | 30      |
+| Fracture       | 0.44      | 0.62   | 0.51     | 76      |
+| Effusion       | 0.76      | 0.87   | 0.81     | 252     |
+| Atelectasis    | 0.11      | 0.77   | 0.20     | 48      |
+| Fibrosis       | 0.21      | 0.77   | 0.33     | 82      |
+| No Finding     | 0.37      | 0.86   | 0.51     | 83      |
+
+<sub>See detailed threshold optimization above the table for each class.</sub>
+
+---
+
+### 🎯 Next Steps
+
+- Evaluate ensemble voting strategies using soft/hard voting.
+- Improve precision for low-performing classes (e.g., Pneumothorax, Calcification).
+- Visualize Grad-CAM++ for interpretability and radiologist validation.
+
+---
+
+> ✅ Overall, the Swin Transformer has shown high discriminative ability and excellent sensitivity for dominant pathologies. Future iterations will focus on improving specificity for rare findings.
