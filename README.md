@@ -717,3 +717,18 @@ Each matrix illustrates prediction breakdowns for True Positive/Negative and Fal
 ---
 
 > ✅ Overall, the Swin Transformer has shown high discriminative ability and excellent sensitivity for dominant pathologies. Future iterations will focus on improving specificity for rare findings.
+
+
+---
+
+### 🔍 Model Interpretability – Grad-CAM++
+
+We applied **Grad-CAM++** to visualize how the Swin Transformer identifies pathologies. Below is an example for the class **Consolidation**:
+
+![GradCAM](images/gradcam_plus_plus.png)
+
+> The Swin Transformer highlights key thoracic regions with high activation heatmaps in predicted areas, especially in consolidation cases with high confidence (e.g., 0.49, 0.40, etc.).
+
+---
+
+Let us know if you'd like to include a downloadable `.csv` with predictions, full classification reports, or if you'd like to experiment with dynamic threshold tuning.
