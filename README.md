@@ -732,3 +732,47 @@ We applied **Grad-CAM++** to visualize how the Swin Transformer identifies patho
 ---
 
 Let us know if you'd like to include a downloadable `.csv` with predictions, full classification reports, or if you'd like to experiment with dynamic threshold tuning.
+
+
+## 🩻 Merging Minority-Class Samples from External Datasets
+
+To address class imbalance in the ChestXDet10 dataset, particularly for underrepresented classes like `Pneumothorax`, `Fracture`, `Mass`, and `Fibrosis`, we implemented a **data enrichment strategy** by merging relevant samples from **external open-source datasets**:
+
+### 📦 Datasets Used
+
+- [ChestXDet10](https://www.kaggle.com/datasets/yoctoman/chestxdet10dataset)
+- [SIIM-ACR Pneumothorax](https://www.kaggle.com/competitions/siim-acr-pneumothorax-segmentation)
+- [VinBigData Chest X-ray](https://www.kaggle.com/datasets/vinbigdata/vinbigdata-chest-xray-original-png)
+- [Chest X-ray Pneumonia](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)
+
+We extracted and remapped class labels where possible, assuming **single-label mappings per dataset**. Each image was relabeled and copied into a unified training folder, and a new `merged_annotations.json` was created for multi-label supervision.
+
+### ✅ Final Merged Statistics
+
+- **Total Merged Training Samples**: ~3000+
+- **Enriched Classes**: `Pneumothorax`, `Fracture`, `Mass`, `Calcification`, `Nodule`, `Atelectasis`, `Fibrosis`
+- **"No Finding"** was assigned to images with no labels during preprocessing.
+
+---
+
+## 📈 Training Results on Merged Dataset (Swin Transformer)
+
+After merging external minority-class samples and applying strong class-conditional augmentation, we trained a `Swin Tiny` model for 100 epochs. Below are the performance metrics:
+
+| Class         | Precision | Recall |
+|---------------|-----------|--------|
+| Consolidation | 0.7169    | 0.7529 |
+| Pneumothorax  | 0.1532    | 0.9730 |
+| Emphysema     | 0.1389    | 0.8571 |
+| Calcification | 0.1245    | 1.0000 |
+| Nodule        | 0.2165    | 1.0000 |
+| Mass          | 0.0840    | 0.9524 |
+| Fracture      | 0.2328    | 1.0000 |
+| Effusion      | 0.6515    | 0.7644 |
+| Atelectasis   | 0.1959    | 0.9048 |
+| Fibrosis      | 0.3308    | 1.0000 |
+| No Finding    | 0.6378    | 0.8993 |
+
+> 🔥 **Notable improvement** in **recall** across all minority classes, especially for `Fracture`, `Fibrosis`, `Mass`, and `Pneumothorax`.
+
+![Precision & Recall Trends](images/precision_recall_plot.png)
