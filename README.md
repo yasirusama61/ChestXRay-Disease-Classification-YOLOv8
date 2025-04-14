@@ -776,3 +776,46 @@ After merging external minority-class samples and applying strong class-conditio
 > 🔥 **Notable improvement** in **recall** across all minority classes, especially for `Fracture`, `Fibrosis`, `Mass`, and `Pneumothorax`.
 
 ![Precision & Recall Trends](images/precision_recall_plot.png)
+
+## 🔁 Retraining Swin Transformer with External Dataset Merge Strategy
+
+We enhanced minority class learning in the ChestXDet10 dataset by **merging additional samples** from public open-source datasets (SIIM, VinBigData, etc.). These new samples were selectively added to boost underrepresented pathologies like *Pneumothorax*, *Nodule*, *Mass*, *Fracture*, and *Atelectasis*.
+
+### 📦 Data Augmentation Strategy
+
+- ✅ **Original dataset**: ChestXDet10
+- ➕ **External minority class sources**:
+  - `siim`: *Pneumothorax*
+  - `vinbigdata`: *Nodule*
+- 🧩 **Merged samples**: 3,350+ additional training images
+- 🔄 **Targeted augmentations** applied only to minority classes
+- 🧪 **Validation split**: 20% from merged data
+- ⚖️ **Loss Function**: Focal Loss (γ=2)
+- 🧰 **Optimizer**: AdamW + Cosine Annealing LR
+- ⏱️ **Epochs**: 52
+
+---
+
+### 📊 Final Validation Results (Epoch 52)
+
+| Class         | Precision | Recall  |
+|---------------|-----------|---------|
+| Consolidation | 0.5513    | 0.7706  |
+| Pneumothorax  | 0.5609    | 0.8902  |
+| Emphysema     | 0.0719    | 0.8462  |
+| Calcification | 0.0658    | 1.0000  |
+| Nodule        | 0.7663    | 0.8290  |
+| Mass          | 0.0325    | 1.0000  |
+| Fracture      | 0.1726    | 0.9000  |
+| Effusion      | 0.5318    | 0.8035  |
+| Atelectasis   | 0.1180    | 0.9524  |
+| Fibrosis      | 0.2107    | 0.9457  |
+| No Finding    | 0.5661    | 0.9786  |
+
+---
+
+### 📈 Training & Validation Loss Curve
+
+<p align="center">
+  <img src="images/training_plot_new.png" alt="Training Loss Curve" width="600"/>
+</p>
