@@ -755,6 +755,37 @@ We extracted and remapped class labels where possible, assuming **single-label m
 
 ---
 
+## 🧩 Dataset Merging Strategy
+
+To improve performance on underrepresented classes in the ChestXDet10 dataset, we **merged external datasets** targeting minority class augmentation. Sources used include:
+
+- `SIIM-ACR Pneumothorax` → for **Pneumothorax**
+- `VinBigData Chest X-ray` → for **Nodule**
+- `ChestX-ray Pneumonia Dataset` → for **Atelectasis**
+
+We included both **training** and **testing** folders from external datasets and mapped them to their closest ChestXDet10 labels. A limit of 500 images per source was enforced to avoid majority class dilution.
+
+---
+
+### 📊 Class Distribution in Merged Dataset
+
+The plot below shows the class distribution after merging:
+
+![Class Distribution](images/class_distribution_after_merge.png)
+
+---
+
+### 🖼️ Sample Merged Images with Annotations
+
+Below are random samples of merged images and their corresponding labels:
+
+![Sample Images](images/sample_image_after_merge.png)
+
+---
+
+This merged dataset was then used to retrain our Swin Transformer model with **targeted augmentation strategies**, resulting in improved recall across several previously imbalanced classes.
+
+
 ## 📈 Training Results on Merged Dataset (Swin Transformer)
 
 After merging external minority-class samples and applying strong class-conditional augmentation, we trained a `Swin Tiny` model for 100 epochs. Below are the performance metrics:
