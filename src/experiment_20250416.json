@@ -1,0 +1,52 @@
+{
+    "experiment_name": "SwinTransformer_ChestXDet10_MergedData",
+    "date": "2025-04-16",
+    "model": {
+      "architecture": "Swin-Tiny",
+      "pretrained": true,
+      "input_size": [224, 224],
+      "num_classes": 11,
+      "loss_function": "FocalLoss",
+      "optimizer": "AdamW",
+      "learning_rate": 1e-6,
+      "scheduler": "CosineAnnealingLR",
+      "augmentation": "Targeted (strong for minority classes)"
+    },
+    "dataset": {
+      "base_dataset": "ChestXDet10",
+      "external_sources": {
+        "siim-acr-pneumothorax": "Pneumothorax",
+        "vinbigdata": "Nodule",
+        "siim-alternative": "Atelectasis"
+      },
+      "total_samples_after_merge": 7162,
+      "image_resolution": [224, 224],
+      "train_val_split": "80% train / 20% val"
+    },
+    "training": {
+      "epochs": 100,
+      "early_stopping": false,
+      "batch_size": 64,
+      "best_val_loss": 0.0555,
+      "final_epoch": 52
+    },
+    "performance": {
+      "mean_precision": 0.4221,
+      "mean_recall": 0.8871,
+      "per_class": {
+        "Consolidation": { "precision": 0.5513, "recall": 0.7706 },
+        "Pneumothorax": { "precision": 0.5609, "recall": 0.8902 },
+        "Emphysema": { "precision": 0.0719, "recall": 0.8462 },
+        "Calcification": { "precision": 0.0658, "recall": 1.0000 },
+        "Nodule": { "precision": 0.7663, "recall": 0.8290 },
+        "Mass": { "precision": 0.0325, "recall": 1.0000 },
+        "Fracture": { "precision": 0.1726, "recall": 0.9000 },
+        "Effusion": { "precision": 0.5318, "recall": 0.8035 },
+        "Atelectasis": { "precision": 0.1180, "recall": 0.9524 },
+        "Fibrosis": { "precision": 0.2107, "recall": 0.9457 },
+        "No Finding": { "precision": 0.5661, "recall": 0.9786 }
+      }
+    },
+    "notes": "Precision remains low for some minority classes (Mass, Emphysema). Future plans include implementing class-conditional cutmix and exploring pseudo-labeling from larger pretrained ensembles."
+  }
+  
